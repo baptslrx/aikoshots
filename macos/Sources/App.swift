@@ -28,6 +28,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let model = ShotsModel()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        EditMenu.install(appName: "AikoShots")
         let w = NSWindow(contentViewController: NSHostingController(rootView: ShotsView(model: model)))
         w.title = "AikoShots"
         w.styleMask = [.titled, .closable, .miniaturizable, .resizable]
