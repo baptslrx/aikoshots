@@ -1,0 +1,24 @@
+== 1re capture
+   3 appareils en 9.5 s
+  ok   3 captures enregistrées
+   iPhone SE : 375×2449 · Full HD : 1920×1157
+  ok   largeurs exactes des appareils
+  ok   page entière sur téléphone (2449 px de haut, plus que l'écran)
+  ok   la mise en page mobile (colonnes empilées) est bien plus haute que sur ordinateur
+== Modification du site, 2e capture
+  ok   comparée automatiquement avec la capture précédente
+   desktop-hd : 1.0 % changé, 2 zone(s)
+   ipad-air : 1.9 % changé, 2 zone(s)
+   iphone-se : 1.4 % changé, 2 zone(s)
+  ok   changements repérés (titre et bouton) sans tout marquer
+  ok   les zones modifiées sont en haut de page, là où on a changé
+   capture galerie-sombre.png
+   capture galerie-clair.png
+   capture avant-apres-sombre.png
+   capture avant-apres-clair.png
+== 3e capture sans rien changer
+  ok   rien n'a changé → « Identique » partout
+== Adresse impossible
+  ok   message clair : Le site ne répond pas. Vérifie l'adresse (et que le site local est bien lancé).
+
+Tout est OK

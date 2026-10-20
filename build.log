@@ -1,0 +1,4 @@
+→ Compilation universelle (arm64 + x86_64)…
+✓ build/AikoShots.app prêt
+Executable=/Users/runner/work/aikoshots/aikoshots/macos/build/AikoShots.app/Contents/MacOS/AikoShots
+designated => identifier "fr.aikographic.aikoshots"
