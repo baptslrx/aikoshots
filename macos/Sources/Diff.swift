@@ -22,9 +22,7 @@ enum Differ {
                                       space: CGColorSpace(name: CGColorSpace.sRGB)!,
                                       bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return }
             ctx.interpolationQuality = .medium
-            // CGContext a l'origine en bas : on retourne pour lire de haut en bas
-            ctx.translateBy(x: 0, y: CGFloat(h))
-            ctx.scaleBy(x: 1, y: -1)
+            // En mémoire, la 1re ligne est le haut de l'image : pas besoin de retourner
             ctx.draw(img, in: CGRect(x: 0, y: 0, width: width, height: h))
         }
         return (buf, width, h)

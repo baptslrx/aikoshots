@@ -82,6 +82,24 @@ final class ShotsModel: ObservableObject {
         error = nil
         busy = true
         defer { busy = false }
+        // Le site répond-il ? (message clair plutôt que des captures vides)
+        if !u.isFileURL {
+            var req = URLRequest(url: u, timeoutInterval: 12)
+            req.httpMethod = "GET"
+            do {
+                let (_, resp) = try await URLSession.shared.data(for: req)
+                if let http = resp as? HTTPURLResponse, http.statusCode >= 400 {
+                    error = "Le site répond « erreur \(http.statusCode) ». Vérifie l'adresse."
+                    return
+                }
+            } catch {
+                self.error = "Le site ne répond pas. Vérifie l'adresse (et que le site local est bien lancé)."
+                return
+            }
+        } else if !FileManager.default.fileExists(atPath: u.path) {
+            error = "Fichier introuvable : \(u.path)"
+            return
+        }
         UserDefaults.standard.set(url, forKey: "lastURL")
         UserDefaults.standard.set(Array(selected), forKey: "devices")
         let previous = sameSite.first
