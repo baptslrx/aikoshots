@@ -94,8 +94,16 @@ final class Shooter: NSObject, WKNavigationDelegate {
 
     private func sleep(_ s: Double) async { try? await Task.sleep(nanoseconds: UInt64(s * 1e9)) }
 
+    /// Exécute du JavaScript (version à rappel : la version « async » plante quand le résultat est vide).
+    @discardableResult
+    private func run(_ js: String) async -> Any? {
+        await withCheckedContinuation { c in
+            web.evaluateJavaScript(js) { result, _ in c.resume(returning: result) }
+        }
+    }
+
     private func number(_ js: String) async -> Double {
-        let v = try? await web.evaluateJavaScript(js)
+        let v = await run(js)
         if let d = v as? Double { return d }
         if let n = v as? NSNumber { return n.doubleValue }
         return 0
@@ -110,11 +118,11 @@ final class Shooter: NSObject, WKNavigationDelegate {
         if fullPage && height > viewportH {
             var y = 0.0
             while y < height {
-                _ = try? await web.evaluateJavaScript("window.scrollTo(0, \(y))")
+                await run("window.scrollTo(0, \(y)); 0")
                 await sleep(0.08)
                 y += viewportH
             }
-            _ = try? await web.evaluateJavaScript("window.scrollTo(0, 0)")
+            await run("window.scrollTo(0, 0); 0")
             await sleep(0.3)
             height = await number("Math.max(document.documentElement.scrollHeight, document.body ? document.body.scrollHeight : 0)")
             let full = min(max(height, viewportH), 16000)
